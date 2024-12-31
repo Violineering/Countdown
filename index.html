@@ -3,70 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to 5 PM</title>
+    <title>Countdown to New Year 2025</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1d;
+            color: #f1f1f1;
             text-align: center;
-            margin-top: 20%;
-            background-color: #f4f4f9;
-            color: #333;
         }
-        h1 {
-            font-size: 2.5rem;
-        }
-        #timer {
+
+        header {
+            background-color: #4e4e50;
+            padding: 20px;
+            color: #fff;
             font-size: 2rem;
-            margin: 20px 0;
-            color: #007bff;
+            font-weight: bold;
         }
-        #status {
-            font-size: 1.5rem;
-            color: #28a745;
+
+        #countdown {
+            font-size: 3rem;
+            margin: 30px 0;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 80%;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .slides {
+            display: none;
+        }
+
+        .slides img {
+            width: 100%;
+            height: auto;
+        }
+
+        .dot-container {
+            margin: 15px 0;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active {
+            background-color: #717171;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #ccc;
         }
     </style>
 </head>
 <body>
-    <h1>Say Goodbye to ICA in</h1>
-    <div id="timer">Loading...</div>
-    <div id="status"></div>
+    <header>Countdown to 2025</header>
+
+    <!-- Countdown Timer -->
+    <div id="countdown">Loading...</div>
+
+    <!-- Slideshow -->
+    <div class="slideshow-container">
+        <div class="slides">
+            <img src="https://via.placeholder.com/800x400.png?text=Memory+1" alt="Memory 1">
+        </div>
+        <div class="slides">
+            <img src="https://via.placeholder.com/800x400.png?text=Memory+2" alt="Memory 2">
+        </div>
+        <div class="slides">
+            <img src="https://via.placeholder.com/800x400.png?text=Memory+3" alt="Memory 3">
+        </div>
+    </div>
+
+    <!-- Slideshow Dots -->
+    <div class="dot-container">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <footer>&copy; 2024 - Happy New Year!</footer>
 
     <script>
-        function countdownToFivePM() {
-            const timerElement = document.getElementById("timer");
-            const statusElement = document.getElementById("status");
+        // Countdown Timer
+        function countdownToNewYear() {
+            const countdownElement = document.getElementById("countdown");
+            const newYearDate = new Date(2025, 0, 1, 0, 0, 0); // Jan 1, 2025
 
-            const now = new Date();
-            const todayFivePM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0);
-
-            // If it's past 5 PM, set countdown for the next day
-            if (now >= todayFivePM) {
-                todayFivePM.setDate(todayFivePM.getDate() + 1);
-            }
-
-            const interval = setInterval(() => {
-                const currentTime = new Date();
-                const timeDifference = todayFivePM - currentTime;
+            const updateTimer = setInterval(() => {
+                const now = new Date();
+                const timeDifference = newYearDate - now;
 
                 if (timeDifference <= 0) {
-                    clearInterval(interval);
-                    timerElement.textContent = "Time's up!";
-                    statusElement.textContent = "It's now 5 PM!";
+                    clearInterval(updateTimer);
+                    countdownElement.textContent = "🎉 Happy New Year 2025! 🎉";
                     return;
                 }
 
-                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-                timerElement.textContent = 
-                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                statusElement.textContent = "Countdown in progress...";
+                countdownElement.textContent = 
+                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
             }, 1000);
         }
 
-        // Start the countdown as soon as the page loads
-        window.onload = countdownToFivePM;
+        // Image Slideshow
+        let slideIndex = 0;
+
+        function showSlides() {
+            const slides = document.querySelectorAll(".slides");
+            const dots = document.querySelectorAll(".dot");
+
+            slides.forEach((slide, index) => {
+                slide.style.display = "none";
+                dots[index].classList.remove("active");
+            });
+
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].style.display = "block";
+            dots[slideIndex].classList.add("active");
+        }
+
+        function startSlideshow() {
+            showSlides();
+            setInterval(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        // Start Countdown and Slideshow
+        window.onload = () => {
+            countdownToNewYear();
+            startSlideshow();
+        };
     </script>
 </body>
 </html>
