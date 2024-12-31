@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+        #timer {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            color: #007bff;
+        }
+        button {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Timer</h1>
+    <div id="timer">00:00:00</div>
+    <button onclick="startTimer()">Start Timer</button>
+
+    <script>
+        let countdown;
+        function startTimer() {
+            clearInterval(countdown);
+            const endTime = Date.now() + 75 * 60 * 1000; // 5 minutes
+            countdown = setInterval(() => {
+                const remainingTime = endTime - Date.now();
+                if (remainingTime <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById("timer").textContent = "Time's up!";
+                } else {
+                    const mins = Math.floor(remainingTime / 1000 / 60);
+                    const secs = Math.floor((remainingTime / 1000) % 60);
+                    document.getElementById("timer").textContent = 
+                        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
