@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Timer</title>
+    <title>Countdown to 5 PM</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,50 +13,60 @@
             color: #333;
         }
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
         }
         #timer {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin: 20px 0;
             color: #007bff;
         }
-        button {
-            font-size: 1.2rem;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
+        #status {
+            font-size: 1.5rem;
+            color: #28a745;
         }
     </style>
 </head>
 <body>
-    <h1>Simple Timer</h1>
-    <div id="timer">00:00:00</div>
-    <button onclick="startTimer()">Start Timer</button>
+    <h1>Countdown to 5 PM</h1>
+    <div id="timer">Loading...</div>
+    <div id="status"></div>
 
     <script>
-        let countdown;
-        function startTimer() {
-            clearInterval(countdown);
-            const endTime = Date.now() + 75 * 60 * 1000; // 5 minutes
-            countdown = setInterval(() => {
-                const remainingTime = endTime - Date.now();
-                if (remainingTime <= 0) {
-                    clearInterval(countdown);
-                    document.getElementById("timer").textContent = "Time's up!";
-                } else {
-                    const mins = Math.floor(remainingTime / 1000 / 60);
-                    const secs = Math.floor((remainingTime / 1000) % 60);
-                    document.getElementById("timer").textContent = 
-                        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        function countdownToFivePM() {
+            const timerElement = document.getElementById("timer");
+            const statusElement = document.getElementById("status");
+
+            const now = new Date();
+            const todayFivePM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0);
+
+            // If it's past 5 PM, set countdown for the next day
+            if (now >= todayFivePM) {
+                todayFivePM.setDate(todayFivePM.getDate() + 1);
+            }
+
+            const interval = setInterval(() => {
+                const currentTime = new Date();
+                const timeDifference = todayFivePM - currentTime;
+
+                if (timeDifference <= 0) {
+                    clearInterval(interval);
+                    timerElement.textContent = "Time's up!";
+                    statusElement.textContent = "It's now 5 PM!";
+                    return;
                 }
+
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                timerElement.textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                statusElement.textContent = "Countdown in progress...";
             }, 1000);
         }
+
+        // Start the countdown as soon as the page loads
+        window.onload = countdownToFivePM;
     </script>
 </body>
 </html>
