@@ -5,95 +5,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown to New Year 2025</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1d;
-            color: #f1f1f1;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #fff;
             text-align: center;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Video background */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
         }
 
         header {
-            background-color: #4e4e50;
-            padding: 20px;
-            color: #fff;
-            font-size: 2rem;
+            font-size: 6rem; /* Larger text size */
             font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffcc99;
+            margin-bottom: 10px; 
+            z-index: 2;
         }
 
         #countdown {
-            font-size: 3rem;
-            margin: 30px 0;
+            font-size: 4rem; /* Larger countdown timer */
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #ffcc99;
+            text-align: center;
+            margin-top: 20px;
+            z-index: 2;
         }
 
         .slideshow-container {
             position: relative;
-            max-width: 80%;
-            margin: 30px auto;
+            width: 90%; /* Adjusted for smaller screens */
+            height: 300px; /* Scaled height */
+            margin-top: 20px;
+            z-index: 1;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
         }
 
         .slides {
             display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
 
         .slides img {
             width: 100%;
-            height: auto;
-        }
-
-        .dot-container {
-            margin: 15px 0;
-        }
-
-        .dot {
-            height: 15px;
-            width: 15px;
-            margin: 0 5px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active {
-            background-color: #717171;
+            height: 100%;
+            object-fit: contain; /* Ensure full image fits within the container */
+            border-radius: 10px;
         }
 
         footer {
             margin-top: 20px;
-            font-size: 1rem;
-            color: #ccc;
+            font-size: 0.8rem;
+            color: #bbb;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                font-size: 4rem;
+            }
+
+            #countdown {
+                font-size: 3rem;
+            }
+
+            .slideshow-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                font-size: 3rem;
+            }
+
+            #countdown {
+                font-size: 2rem;
+            }
+
+            .slideshow-container {
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video class="video-background" autoplay muted loop>
+        <source src="c054ffbadb5c405cbea655c32ca55a4b_preview.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
     <header>Countdown to 2025</header>
 
     <!-- Countdown Timer -->
     <div id="countdown">Loading...</div>
 
-    <!-- Slideshow -->
+    <!-- Slideshow Container -->
     <div class="slideshow-container">
         <div class="slides">
-            <img src="https://via.placeholder.com/800x400.png?text=Memory+1" alt="Memory 1">
+            <img src="bobo1.jpg" alt="Image 1">
         </div>
         <div class="slides">
-            <img src="https://via.placeholder.com/800x400.png?text=Memory+2" alt="Memory 2">
+            <img src="bobo2.jpg" alt="Image 2">
         </div>
         <div class="slides">
-            <img src="https://via.placeholder.com/800x400.png?text=Memory+3" alt="Memory 3">
+            <img src="bobo3.jpg" alt="Image 3">
         </div>
-    </div>
-
-    <!-- Slideshow Dots -->
-    <div class="dot-container">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+        <div class="slides">
+            <img src="bobo4.jpg" alt="Image 4">
+        </div>
+        <div class="slides">
+            <img src="bobo5.jpg" alt="Image 5">
+        </div>
+        <div class="slides">
+            <img src="bobo6.jpg" alt="Image 6">
+        </div>
+        <div class="slides">
+            <img src="bobo7.jpg" alt="Image 7">
+        </div>
+        <div class="slides">
+            <img src="bobo8.jpg" alt="Image 8">
+        </div>
+         <div class="slides">
+            <img src="bobo9.jpg" alt="Image 9">
+        </div>
+        <div class="slides">
+            <img src="bobo10.jpg" alt="Image 10">
+        </div>
+        <div class="slides">
+            <img src="bobo11.jpg" alt="Image 11">
+        </div>
+        <div class="slides">
+            <img src="bobo12.jpg" alt="Image 12">
+        </div>
+        <div class="slides">
+            <img src="bobo13.jpg" alt="Image 13">
+        </div>
+         <div class="slides">
+            <img src="bobo14.jpg" alt="Image 14">
+        </div>
+        <div class="slides">
+            <img src="bobo15.jpg" alt="Image 15">
+        </div>
     </div>
 
     <footer>&copy; 2024 - Happy New Year!</footer>
@@ -124,33 +207,33 @@
             }, 1000);
         }
 
-        // Image Slideshow
-        let slideIndex = 0;
-
-        function showSlides() {
-            const slides = document.querySelectorAll(".slides");
-            const dots = document.querySelectorAll(".dot");
-
-            slides.forEach((slide, index) => {
-                slide.style.display = "none";
-                dots[index].classList.remove("active");
-            });
-
-            slideIndex = (slideIndex + 1) % slides.length;
-            slides[slideIndex].style.display = "block";
-            dots[slideIndex].classList.add("active");
-        }
-
-        function startSlideshow() {
-            showSlides();
-            setInterval(showSlides, 3000); // Change image every 3 seconds
-        }
-
-        // Start Countdown and Slideshow
+        // Start Countdown
         window.onload = () => {
             countdownToNewYear();
             startSlideshow();
         };
+
+        // Slideshow Functionality
+        let slideIndex = 0;
+        function startSlideshow() {
+            const slides = document.querySelectorAll(".slides");
+            const totalSlides = slides.length;
+
+            function showSlides() {
+                for (let i = 0; i < totalSlides; i++) {
+                    slides[i].style.display = "none";  
+                }
+                slideIndex++;
+                if (slideIndex > totalSlides) {
+                    slideIndex = 1; 
+                }
+                slides[slideIndex - 1].style.display = "block";  
+
+                setTimeout(showSlides, 3000); 
+            }
+
+            showSlides(); 
+        }
     </script>
 </body>
 </html>
