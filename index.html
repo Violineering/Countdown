@@ -1,211 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to New Year 2025</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            color: #fff;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        /* Video background */
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-        }
-
-        header {
-            font-size: 6rem; /* Larger text size */
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #ffcc99;
-            margin-bottom: 10px; 
-            z-index: 2;
-        }
-
-        #countdown {
-            font-size: 4rem; /* Larger countdown timer */
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: #ffcc99;
-            text-align: center;
-            margin-top: 20px;
-            z-index: 2;
-        }
-
-        .slideshow-container {
-            position: relative;
-            width: 90%; /* Adjusted for smaller screens */
-            height: 300px; /* Scaled height */
-            margin-top: 20px;
-            z-index: 1;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .slides {
-            display: none;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .slides img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Ensure full image fits within the container */
-            border-radius: 10px;
-        }
-
-        footer {
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #bbb;
-            letter-spacing: 1px;
-            z-index: 2;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            header {
-                font-size: 4rem;
-            }
-
-            #countdown {
-                font-size: 3rem;
-            }
-
-            .slideshow-container {
-                height: 250px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                font-size: 3rem;
-            }
-
-            #countdown {
-                font-size: 2rem;
-            }
-
-            .slideshow-container {
-                height: 200px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy New Year</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      text-align: center;
+    }
+    .video-background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    #countdown {
+      font-size: 3rem;
+      margin-top: 20vh;
+    }
+    #new-year-video-container {
+      display: none;
+    }
+    #new-year-video {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <!-- Video Background -->
-    <video class="video-background" autoplay muted loop>
-        <source src="c054ffbadb5c405cbea655c32ca55a4b_preview.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+
+  <header>
+    <h1>🎉 Happy New Year Countdown 🎉</h1>
+  </header>
+
+  <video autoplay muted loop class="video-background">
+    <source src="c054ffbadb5c405cbea655c32ca55a4b_preview.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div id="countdown">Loading countdown...</div>
+
+  <div id="new-year-video-container">
+    <video id="new-year-video" controls autoplay>
+      <source src="2025video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
+  </div>
 
-    <header>Countdown to 2025</header>
+  <footer>
+    &copy; 2025 Happy New Year Celebration 🎊
+  </footer>
 
-    <!-- Countdown Timer -->
-    <div id="countdown">Loading...</div>
+  <script>
+    const countdownElement = document.getElementById("countdown");
+    const newYear = new Date("Jan 1, 2026 00:00:00").getTime();
 
- 
-    
- <!-- New Year Video Container -->
-    <div id="new-year-video-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: black;">
-        <video id="new-year-video" style="width: 100%; height: 100%;" autoplay>
-            <source src="2025video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <footer>&copy; 2024 - Happy New Year!</footer>
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = newYear - now;
 
-    <script>
-        // Countdown Timer
-         function countdownToNewYear() {
-            const countdownElement = document.getElementById("countdown");
-            const newYearDate = new Date(2025, 0, 1, 0, 0, 0); // Jan 1, 2025
+      if (distance < 0) {
+        clearInterval(interval);
+        countdownElement.innerText = "🎇 Happy New Year! 🎇";
+        playNewYearVideo();
+        return;
+      }
 
-            const updateTimer = setInterval(() => {
-                const now = new Date();
-                const timeDifference = newYearDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                if (timeDifference <= 0) {
-                    clearInterval(updateTimer);
-                    playNewYearVideo();
-                    return;
-                }
+      countdownElement.innerText =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
 
-                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    function playNewYearVideo() {
+      document.querySelector("header").style.display = "none";
+      document.getElementById("countdown").style.display = "none";
+      document.querySelector("footer").style.display = "none";
+      document.querySelector(".video-background").style.display = "none";
 
-                countdownElement.textContent = 
-                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
-            }, 1000);
-        }
-        
-        function playNewYearVideo() {
-            // Hide all existing content
-            document.body.innerHTML = '';
-            
-            // Show New Year video
-            const videoContainer = document.getElementById("new-year-video-container");
-            videoContainer.style.display = "block";
+      const videoContainer = document.getElementById("new-year-video-container");
+      videoContainer.style.display = "block";
+      const video = document.getElementById("new-year-video");
+      video.play();
+    }
+  </script>
 
-            const video = document.getElementById("new-year-video");
-            video.play();
-        }
-        // Start Countdown
-        window.onload = () => {
-            countdownToNewYear();
-            startSlideshow();
-        };
-
-        // Slideshow Functionality
-        let slideIndex = 0;
-        function startSlideshow() {
-            const slides = document.querySelectorAll(".slides");
-            const totalSlides = slides.length;
-
-            function showSlides() {
-                for (let i = 0; i < totalSlides; i++) {
-                    slides[i].style.display = "none";  
-                }
-                slideIndex++;
-                if (slideIndex > totalSlides) {
-                    slideIndex = 1; 
-                }
-                slides[slideIndex - 1].style.display = "block";  
-
-                setTimeout(showSlides, 3000); 
-            }
-
-            showSlides(); 
-        }
-    </script>
 </body>
 </html>
-
